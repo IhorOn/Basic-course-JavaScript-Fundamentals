@@ -1,6 +1,8 @@
 'use strict'
 
-let num = prompt("Задай первое число")
-let num2 = prompt("Задай второе число")
+let num = Number(prompt("Задай первое число"));
+let num2 = Number(prompt("Задай второе число"));
 
-alert(`Твой результат ${num + num2}`)
+let sum = num + num2;
+
+alert(`Твой результат ${sum}`);

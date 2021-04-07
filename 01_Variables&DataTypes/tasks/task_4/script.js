@@ -3,4 +3,7 @@
 let str = "Я - строка";
 let num = 6;
 
-alert(typeof str / num);
+let sum = str / num;
+
+alert(sum);
+alert(typeof sum);
