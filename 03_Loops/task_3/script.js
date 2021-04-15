@@ -1,7 +1,7 @@
 'use strict'
 
-for (let num1 = 1; num1 <= 9; num1++) {
-    for (let num2 = 1; num2 <= 9; num2++) {
-        console.log(num1 + '*' + num2 + '=' + (num1 * num2));
+for (let i = 1; i <= 9; i++) {
+    for (let j = 1; j <= 9; j++) {
+        console.log(i + '*' + j + '=' + (i * j));
     };
 };
