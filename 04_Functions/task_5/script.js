@@ -1,5 +1,4 @@
 function primeNumber(num) {
-    num = prompt('Number?');
 
     mark:
     for (let i = 2; i < num; i++) {
@@ -11,5 +10,34 @@ function primeNumber(num) {
         console.log(i);
     }
 }
+primeNumber(120);
 
-primeNumber();
+
+// function isPrimeNumber(n) {
+//     let result;
+
+//     for (let i = 2; i < n; i++) {
+//         if (checkPrimery() === i)
+//             return result;
+//     }
+    
+   
+// }
+
+// console.log(isPrimeNumber(10));
+
+// function checkPrimery(num) {
+//     let isPrime = true;
+    
+//     for (let i = 2; i < num; i++) {
+//         if (num % i !== 0) continue;
+//         isPrime = false;
+//     }
+
+//     return isPrime;
+// }
+
+// console.log(checkPrimery(109));
+
+
+

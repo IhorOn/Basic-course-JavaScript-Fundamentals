@@ -1,12 +1,12 @@
-function primeNumber(num) {
-    num = prompt('Number?');
+function checkPrimery(num) {
+    let isPrime = true;
     
     for (let i = 2; i < num; i++) {
-        if (num % i === 0) {
-            return false;
-        }
+        if (num % i !== 0) continue;
+        isPrime = false;
     }
-    return num > 1;
+
+    return isPrime;
 }
 
-console.log(primeNumber());
+console.log(checkPrimery(109));

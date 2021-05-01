@@ -1,13 +1,14 @@
-let infoUser = function(name, age) {
-    name = prompt('Ваше Имя?');
-    age = +prompt('Ваш возраст?');
+let infoUser = function() {
+    let name = prompt('Ваше Имя?');
+    let age = +prompt('Ваш возраст?');
 
-    if (age < 18) {
-        return console.log(`Привет ${name}! Иди учить уроки.`);
-    } else {
-        return console.log(`Привет ${name}! Добро пожаловать, наслаждайся контенотом.`);
-    };
-};
+    const moreAge = `Привет ${name}! Иди учить уроки.`;
+    const lessAge = `Привет ${name}! Добро пожаловать, наслаждайся контенотом.`;
+
+    let message = (age < 18) ? moreAge : lessAge;
+    
+    console.log(message);
+}
 
 infoUser();
 

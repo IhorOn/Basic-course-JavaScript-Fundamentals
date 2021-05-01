@@ -1,6 +1,4 @@
 function pow(x, n) {
-    x = +prompt('Число?');
-    n = +prompt('Степень?');
     let result = 1;
 
     for (let i = 0; i < n; i++) {
@@ -9,4 +7,4 @@ function pow(x, n) {
     return result;
 }
 
-console.log(pow());
+console.log(pow(5,5));

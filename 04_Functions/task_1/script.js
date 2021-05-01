@@ -1,12 +1,7 @@
 function min(a, b) {
-    a = +prompt('Первое число?')
-    b = +prompt('Второе число?')
+    let result = (a < b) ? a : b;
 
-  if (a < b) {
-    return a;
-  } else {
-    return b;
-  }
+    console.log(result);
 }
 
-console.log(min());
+min(2,5);
