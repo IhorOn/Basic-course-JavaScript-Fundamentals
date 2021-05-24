@@ -5,26 +5,17 @@ const list = {
     length: 3,
 
     push(item) {
-        this[4] = item;
-        this.length++;
-        // for (let key in list) {
-        //     if (this.length) {
-
-        //     }
-        // }
+        let { length } = this;
+        length++;
+        this[length] = item;
+        this.length = length;
     },
 
     pop() {
-        const popElem = this[1];
-
-        for (let i = 4; i < this.length; i++) {
-            this[i] = this[i + 1];
-        }
-
-        delete this[this.length];
-        this.length--;
-
-        return popElem;
+        let { length } = this;
+        delete this[length];
+        length--;
+        this.length = length;
     },
 
     shift() {
@@ -49,11 +40,11 @@ const list = {
 
 // console.log(list);
 
-list.push('Eight Sense');
-console.log(list)
+// list.push('Eight Sense');
+// console.log(list);
 
-list.pop();
-console.log(list)
+// list.pop();
+// console.log(list);
 
 // list.shift();
 // console.log(list);
