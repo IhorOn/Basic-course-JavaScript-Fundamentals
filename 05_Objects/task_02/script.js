@@ -13,14 +13,19 @@ const list = {
 
     pop() {
         let { length } = this;
+
+        const popElement = this[length];
         delete this[length];
+
         length--;
         this.length = length;
+
+        return popElement;
     },
 
     shift() {
         const shiftElem = this[1];
-        let length = this.length;
+        let { length } = this;
 
         for (let i = 1; i < length; i++) {
             this[i] = this[i + 1];
@@ -33,6 +38,12 @@ const list = {
     },
 
     unshift(item) {
+        let { length } = this;
+
+        for (let i = length; i > 0; i--) {
+            this[i + 1] = this[i];
+        }
+
         this[1] = item;
         this.length++;
     },
@@ -49,8 +60,8 @@ const list = {
 // list.shift();
 // console.log(list);
 
-// list.unshift('Babylon 5');
-// console.log(list);
+list.unshift('Babylon 5');
+console.log(list);
 
 
 
