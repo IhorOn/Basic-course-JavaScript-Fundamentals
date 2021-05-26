@@ -3,16 +3,15 @@ let multilineComment = '/* A comment */';
 let notComment = 'Not a comment';
 
 function checkIsComment(str) {
-    if (str.indexOf('/*') >= 0 && str.indexOf('*/') >= 0) {
+    if (str.slice(0, 2) == ('/*') && str.slice(-2) == ('*/')) {
        return true;
-    } else if (str.indexOf('//') >= 0) {
+    } else if (str.slice(0, 2) == ('//')) {
         return true;
     } else {
         return false;
     }
-}
+} 
 
-console.log(checkIsComment(multilineComment));
 console.log(checkIsComment(lineComment));
+console.log(checkIsComment(multilineComment));
 console.log(checkIsComment(notComment));
-
