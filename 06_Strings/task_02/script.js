@@ -2,16 +2,18 @@ let lineComment = '// A comment';
 let multilineComment = '/* A comment */';
 let notComment = 'Not a comment';
 
-function checkIsComment(str) {
+function checkComment(str) {
+    let isComment = false;
+
     if (str.slice(0, 2) == ('/*') && str.slice(-2) == ('*/')) {
-       return true;
+       isComment = true;
     } else if (str.slice(0, 2) == ('//')) {
-        return true;
-    } else {
-        return false;
+        isComment = true;
     }
+    return isComment;
+
 } 
 
-console.log(checkIsComment(lineComment));
-console.log(checkIsComment(multilineComment));
-console.log(checkIsComment(notComment));
+console.log(checkComment(lineComment));
+console.log(checkComment(multilineComment));
+console.log(checkComment(notComment));
