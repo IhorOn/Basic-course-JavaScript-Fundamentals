@@ -1,22 +1,24 @@
-function sum(a, b) {
-    if (a.indexOf('px') != -1 && b.indexOf('px') != -1) {
-        sum = parseFloat(a) + parseFloat(b) + a.slice(-2);
-        return sum;
+function calc(a, b) {
 
-    } else if (a.indexOf('rem') != -1 && b.indexOf('rem') != -1) {
+    if (a.includes('px', -2) && b.includes('px', -2)) {
+        sum = parseFloat(a) + parseFloat(b) + a.slice(-2);
+
+    } else if (a.includes('rem', -3) && b.includes('rem', -3)) {
         sum = parseFloat(a) + parseFloat(b) + a.slice(-3);
-        return sum;
-    } else if (a.indexOf('em') != -1 && b.indexOf('em') != -1) {
+
+    } else if (a.includes('em', -2) && b.includes('em', -2)) {
         sum = parseFloat(a) + parseFloat(b) + a.slice(-2);
 
-    } else if (a.indexOf('%') != -1 && b.indexOf('%') != -1) {
+    } else if (a.includes('%', -1) && b.includes('%', -1)) {
         sum = parseFloat(a) + parseFloat(b) + a.slice(-1);
-        return sum;
 
     } else {
-        sum = 'Error'
-        return sum;
+        sum = 'Error';
     }
+    return sum;
 }
 
-console.log(sum('100px', '50px'));
+console.log(calc('10px', '500px'));
+console.log(calc('20%', '30%'));
+console.log(calc('3rem', '2.6rem'));
+console.log(calc('10em', '20%'));
