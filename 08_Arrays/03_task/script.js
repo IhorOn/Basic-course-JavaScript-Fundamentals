@@ -1,4 +1,3 @@
-
 let set = [
     [2, 32, 1],
     [12, 45, 5],
@@ -6,7 +5,7 @@ let set = [
 ];
 
 let setCon = [].concat(set[0], set[1], set[2]).sort((a, b) => a - b);
-let setSort = [[], [], []]
+let setSort = [[], [], []];
 
 setCon.forEach((number, index) => {
     if (index <= 2) {
@@ -18,7 +17,7 @@ setCon.forEach((number, index) => {
     }
 });
 
-console.log(setSort)
+console.log(setSort);
 
 
 
