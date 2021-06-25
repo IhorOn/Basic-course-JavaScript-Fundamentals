@@ -4,11 +4,15 @@ let set = [
     [56, 81, 7]
 ];
 
-let setCon = [].concat(set[0], set[1], set[2]).sort((a, b) => a - b);
-let setSort = [[], [], []];
+let setWidth = set[0].length;
+let setHeight = set.length;
+
+let setCon = [].concat(set[0], set[1], set[2]).sort((a, b) => a - b); //second
+
+let setSort = [[], [], []]; // first
 
 setCon.forEach((number, index) => {
-    if (index <= 2) {
+    if (index <= 2) { //third
         setSort[0].push(number)
     } else if (index <= 5) {
         setSort[1].push(number)
