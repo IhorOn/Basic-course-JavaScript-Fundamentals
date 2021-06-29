@@ -7,9 +7,19 @@ let set = [
 let setWidth = set[0].length;
 let setHeight = set.length;
 
-let setCon = [].concat(set[0], set[1], set[2]).sort((a, b) => a - b); //second
+let setSort = [];
 
-let setSort = [[], [], []]; // first
+for (let i = 0; i < setHeight; i++) {
+    let newArr = [];
+    setSort.push(newArr);
+}
+
+let setCon = [];
+
+for (let i = 0; i < setHeight; i++) {
+    setCon.concat(set[i]);
+}
+setCon.sort((a, b) => a - b)
 
 setCon.forEach((number, index) => {
     if (index <= 2) { //third
