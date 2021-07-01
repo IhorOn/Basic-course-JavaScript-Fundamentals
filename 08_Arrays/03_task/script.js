@@ -11,74 +11,67 @@ let liquids = {
 	'O': 0.8,
 };
 
-let liquidsRevers = {
-	1.36: 'H',
-	1: 'W',
-	0.87: 'A',
-	0.8: 'O',
+let liquidsRevers = {};
+let sortingArr = [];
+let arrConcat = [];
+let arrWidth = set[0].length;
+let arrHeight = set.length;
+
+tableRevers(liquids);
+
+transformTypeElem(set, liquids);
+
+copyOriginalArray(set);
+
+concatToOneArray(set);
+
+sortArray(arrConcat);
+
+recordsSourceArray(arrConcat);
+
+transformTypeElem(sortingArr, liquidsRevers);
+
+function tableRevers(liquids) {
+	for (let key in liquids) {
+		liquidsRevers[liquids[key]] = key;
+	};
 };
 
-let honey = 'H';
-let water = 'W';
-let alcohol = 'A';
-let oil = 'O';
-
-function transformToNumber(array) {
-	let arrWidth = array[0].length;
-	let arrHeight = array.length;
-
+function transformTypeElem(array, table) {
 	for (let i = 0; i < arrHeight; i++) {
 		let newArr = array[i];
 		for (let j = 0; j < arrWidth; j++) {
-			newArr[j] = liquids[newArr[j]];
-		}
-	}
+			newArr[j] = table[newArr[j]];
+		};
+	};
 };
-transformToNumber(set)
 
-let sortingArr = [];
-
-function sorting(array) {
-	let arrWidth = array[0].length;
-	let arrHeight = array.length;
-
+function copyOriginalArray() {
 	for (let i = 0; i < arrHeight; i++) {
 		let newArr = [];
 		sortingArr.push(newArr);
-	}
+	};
+};
 
-	let arrCon = [];
-
+function concatToOneArray(array) {
 	for (let i = 0; i < arrHeight; i++) {
-		arrCon = arrCon.concat(array[i]);
-	}
+		arrConcat = arrConcat.concat(array[i]);
+	};
+};
 
-	arrCon.sort((a, b) => a - b);
+function sortArray(array) {
+	array.sort((a, b) => a - b);
+};
 
-	for (let i = 0; i < arrCon.length; i++) {
+function recordsSourceArray(array) {
+	for (let i = 0; i < array.length; i++) {
 		for (let j = 0; j < arrHeight; j++) {
 			if (j * arrWidth <= i && i < (j + 1) * arrWidth) {
-				sortingArr[j].push(arrCon[i]);
+				sortingArr[j].push(arrConcat[i]);
 			};
-		}
-	}
+		};
+	};
 };
-
-sorting(set);
-
-function transformToString(array) {
-	let arrWidth = array[0].length;
-	let arrHeight = array.length;
-
-	for (let i = 0; i < arrHeight; i++) {
-		let newArr = array[i];
-		for (let j = 0; j < arrWidth; j++) {
-			newArr[j] = liquidsRevers[newArr[j]];
-		}
-	}
-};
-
-transformToString(sortingArr);
 
 console.log(sortingArr);
 
