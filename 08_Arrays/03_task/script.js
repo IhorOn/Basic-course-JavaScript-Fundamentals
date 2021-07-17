@@ -11,30 +11,32 @@ let liquids = {
 	'O': 0.8,
 };
 
-let liquidsRevers = {};
+let liquidsRevers = tableRevers(liquids);
 let sortingArr = [];
 let arrConcat = [];
 let arrWidth = set[0].length;
 let arrHeight = set.length;
 
-tableRevers(liquids);
-
 transformTypeElem(set, liquids);
 
-copyOriginalArray(set);
+copyStructure(set);
 
-concatToOneArray(set);
+expandToList(set);
 
-sortArray(arrConcat);
+arrConcat.sort((a, b) => a - b);
 
 recordsSourceArray(arrConcat);
 
 transformTypeElem(sortingArr, liquidsRevers);
 
 function tableRevers(liquids) {
+	let liquidsRevers = {};
+
 	for (let key in liquids) {
 		liquidsRevers[liquids[key]] = key;
 	};
+
+	return liquidsRevers;
 };
 
 function transformTypeElem(array, table) {
@@ -46,21 +48,17 @@ function transformTypeElem(array, table) {
 	};
 };
 
-function copyOriginalArray() {
+function copyStructure() {
 	for (let i = 0; i < arrHeight; i++) {
 		let newArr = [];
 		sortingArr.push(newArr);
 	}
 };
 
-function concatToOneArray(array) {
+function expandToList(array) {
 	for (let i = 0; i < arrHeight; i++) {
 		arrConcat = arrConcat.concat(array[i]);
 	};
-};
-
-function sortArray(array) {
-	array.sort((a, b) => a - b);
 };
 
 function recordsSourceArray(array) {
