@@ -11,7 +11,7 @@ arrayElem.push(navElem.firstElementChild.children[2]); //3
 
 arrayElem.push(nextSiblingNav.parentElement); //4
 
-const tablePricing = documentBody.querySelectorAll('td'); //5
+const tablePricing = documentBody.querySelectorAll('.pricing__cell'); //5
 for (let cell of tablePricing) {
     arrayElem.push(cell)
 };
