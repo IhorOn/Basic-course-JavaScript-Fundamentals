@@ -14,7 +14,7 @@ for (let ul of elemUl) {
     arrayElem.push(ul)
 };
 
-const elemActive = elemAboutUs.querySelector('.active').closest('.navigation-element'); //4
+const elemActive = elemAboutUs.querySelector('.active , .about-us__item').closest('.navigation-element'); //4
 arrayElem.push(elemActive);
 
 console.log(arrayElem);
@@ -23,7 +23,8 @@ console.log(arrayElem);
 
 const elemFooter = documentBody.querySelector('footer'); //1
 const elemMainMenu = documentBody.querySelector('.main-menu')
-elemFooter.innerHTML = elemMainMenu.innerHTML;
+let clonMainMenu = elemMainMenu.cloneNode(true);
+elemFooter.append(clonMainMenu)
 
 elemFooter.hidden = true; //2 
 
