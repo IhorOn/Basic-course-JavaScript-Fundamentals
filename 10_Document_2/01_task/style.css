@@ -2,13 +2,14 @@
   width: 500px;
   height: 500px;
   margin: 0 auto;
+  position: relative;
 }
 .content__circle {
   width: 100px;
   height: 100px;
   background-color: rgb(255, 0, 0);
   border-radius: 50%;
-  position: relative;
+  position: absolute;
   left: 0;
 
   animation-name: red-circle;
@@ -22,7 +23,7 @@
   animation-play-state: paused;
 }
 
-@keyframes red-circle {
+/* @keyframes red-circle {
   0% {
     left: 0;
     top: 0;
@@ -34,4 +35,4 @@
     left: 400px;
     top: 400px;
   }
-}
+} */
