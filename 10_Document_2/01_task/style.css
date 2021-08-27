@@ -3,6 +3,7 @@
   height: 500px;
   margin: 0 auto;
   position: relative;
+  border: 5px solid black;
 }
 .content__circle {
   width: 100px;
