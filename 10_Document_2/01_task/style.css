@@ -12,28 +12,20 @@
   border-radius: 50%;
   position: absolute;
   left: 0;
-
-  animation-name: red-circle;
-  animation-duration: 2s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
-
-.content__circle:hover {
-  animation-play-state: paused;
-}
-
-/* @keyframes red-circle {
-  0% {
-    left: 0;
-    top: 0;
-  }
-  50% {
-    background-color: rgb(255, 0, 234);
-  }
-  100% {
-    left: 400px;
-    top: 400px;
-  }
+/* .content__circle::before {
+  color: white;
+  font-size: 65px;
+  position: absolute;
+  left: 34px;
+  top: 12px;
+  content: 1;
 } */
+
+.circle__counter {
+  color: white;
+  font-size: 65px;
+  position: absolute;
+  left: 34px;
+  top: 12px;
+}
