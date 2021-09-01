@@ -13,14 +13,6 @@
   position: absolute;
   left: 0;
 }
-/* .content__circle::before {
-  color: white;
-  font-size: 65px;
-  position: absolute;
-  left: 34px;
-  top: 12px;
-  content: 1;
-} */
 
 .circle__counter {
   color: white;
