@@ -1,44 +1,51 @@
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-};
-
-let random = getRandomArbitrary(0, 400);
 let circle = document.querySelector('.content__circle');
 let counter = document.querySelector('.circle__counter');
 let time = 1000;
-let clearInt = setInterval(moveCircle, 5, 200, 400);
 let currentX = 0;
 let currentY = 0;
 let n = time / 5;
+
+randomMove();
 
 function moveCircle(x, y) {
     let stepX = x / n;
     let stepY = y / n;
 
-    currentX += stepX;
-    currentY += stepY;
-    
-    if (currentY >= y && currentX >= x) {
+    let clearInt = setInterval(() => {
+        currentX += stepX;
+        currentY += stepY;
+
+        if (currentY >= y && currentX >= x) {
         clearInterval(clearInt);
         circle.style.background = 'blue';
         counter.innerHTML = 2;
     } else {
-        circle.style.top = currentY + stepY +'px';
+        circle.style.top = currentY + stepY + 'px';
         circle.style.left = currentX + stepX + 'px';
     }
-};
+    }, 5);
+    console.log(x, y);
+}
 
 function randomMove() {
-    if (random <= 200) {
-        circle.style.top = 400 + 'px';
-        circle.style.left = random + 'px';
-    } else {
-        circle.style.top = random + 'px';
-        circle.style.left = 400 + 'px';
-    }    
-};
+    let randomBool = getRandomNumber(0, 1);
+    let randomPositoin = getRandomNumber(0, 400);
 
-// circle.style.top = random + 'px';
-// circle.style.left = '400px'
+    if (randomBool == true) {
+        moveCircle(400, randomPositoin);
+        // console.log('true')
+    } else {
+        moveCircle(randomPositoin, 400);
+        // console.log('false')
+    }
+    // console.log(randomBool, randomPositoin)
+}
+
+function getRandomNumber(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 
