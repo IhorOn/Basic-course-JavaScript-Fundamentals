@@ -10,19 +10,21 @@ function moveCircle(x, y) {
     let stepY = y / n;
     let currentX = 0;
     let currentY = 0;
-
-    setInterval(() => {
     
-    if (currentY >= 400 || currentX >= 400) {
-        circle.style.background = 'blue';
-        counter.innerHTML = 2;
-    } else {
-        currentX += stepX;
-        currentY += stepY;
-        circle.style.top = currentY + 'px';
-        circle.style.left = currentX + 'px';
-        }
-    }, 5);
+    setInterval(() => {
+        let step = 0;
+        step++;
+        
+        if (n < step) {
+            circle.style.background = 'blue';
+            counter.innerHTML = 2;
+        } else {
+            currentX += stepX;
+            currentY += stepY;
+            circle.style.top = currentY + 'px';
+            circle.style.left = currentX + 'px';
+            }
+        }, 5);
 }
 
 function randomMove() {
