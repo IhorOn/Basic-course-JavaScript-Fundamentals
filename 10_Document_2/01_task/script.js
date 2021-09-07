@@ -1,29 +1,27 @@
 let circle = document.querySelector('.content__circle');
 let counter = document.querySelector('.circle__counter');
-let time = 1000;
-let currentX = 0;
-let currentY = 0;
-let n = time / 5;
 
 randomMove();
 
 function moveCircle(x, y) {
+    let time = 1000;
+    let n = time / 5;
     let stepX = x / n;
     let stepY = y / n;
+    let currentX = 0;
+    let currentY = 0;
 
-    let clearInt = setInterval(() => {
-        currentX += stepX;
-        currentY += stepY;
-
-    if (currentY >= y || currentX >= x) {
-        // clearInterval(clearInt);
+    setInterval(() => {
+    
+    if (currentY >= 400 || currentX >= 400) {
         circle.style.background = 'blue';
         counter.innerHTML = 2;
-        randomMove();
     } else {
-        circle.style.top = currentY + stepY + 'px';
-        circle.style.left = currentX + stepX + 'px';
-    }
+        currentX += stepX;
+        currentY += stepY;
+        circle.style.top = currentY + 'px';
+        circle.style.left = currentX + 'px';
+        }
     }, 5);
 }
 
