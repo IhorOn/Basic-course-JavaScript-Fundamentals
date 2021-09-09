@@ -1,7 +1,7 @@
 let circle = document.querySelector('.content__circle');
 let counter = document.querySelector('.circle__counter');
 let switchColor = true;
-let num = 1;
+let counterNumber = 1;
 
 randomMove();
 
@@ -10,7 +10,6 @@ function moveCircle(x, y) {
     let circleY = parseInt(circleStyle.getPropertyValue('top'));
     let circleX = parseInt(circleStyle.getPropertyValue('left'));
 
-    counter.innerHTML = num;
     let time = 1000;
     let n = time / 5;
     let currentX = circleX;
@@ -21,15 +20,10 @@ function moveCircle(x, y) {
 
     let stopInterval = setInterval(() => {
         step++;
-        switchColor = !switchColor;
+
         if (n < step) {
+            touchBall();
             clearInterval(stopInterval);
-            if (switchColor) {
-                 circle.style.background = 'blue';
-            } else {
-                circle.style.background = 'red';
-            }
-            num++;
         } else {
             currentX += stepX;
             currentY += stepY;
@@ -37,6 +31,18 @@ function moveCircle(x, y) {
             circle.style.left = Math.round(currentX) + 'px';
         }
     }, 5);
+}
+
+function touchBall() {
+    counter.innerHTML = counterNumber;
+    counterNumber++;
+    switchColor = !switchColor;
+
+    if (switchColor) {
+        circle.style.background = 'red';
+    } else {
+        circle.style.background = 'blue';
+    }
 }
 
 function randomMove() {
