@@ -1,30 +1,39 @@
 let circle = document.querySelector('.content__circle');
 let counter = document.querySelector('.circle__counter');
 
-randomMove();
+// randomMove();
+moveCircle(400, 250);
+setTimeout(moveCircle, 2000, 50, 150);
 
 function moveCircle(x, y) {
+    let circleStyle = window.getComputedStyle(circle);
+    let circleY = parseInt(circleStyle.getPropertyValue('top'));
+    let circleX = parseInt(circleStyle.getPropertyValue('left'));
+
     let time = 1000;
     let n = time / 5;
     let stepX = x / n;
     let stepY = y / n;
     let currentX = 0;
     let currentY = 0;
-    
+    currentX = circleX - currentX
+    currentY = circleY - currentY
+    let step = 0;
+    console.log(currentX,currentY)
+    console.log(circleX,circleY)
     setInterval(() => {
-        let step = 0;
         step++;
-        
-        if (n < step) {
+
+        if (n <= step) {
             circle.style.background = 'blue';
             counter.innerHTML = 2;
         } else {
             currentX += stepX;
             currentY += stepY;
-            circle.style.top = currentY + 'px';
-            circle.style.left = currentX + 'px';
-            }
-        }, 5);
+            circle.style.top = currentY + stepY + 'px';
+            circle.style.left = currentX + stepX + 'px';
+        }
+    }, 5);
 }
 
 function randomMove() {
@@ -36,6 +45,7 @@ function randomMove() {
     let circleY = parseInt(circleStyle.getPropertyValue('top'));
     let circleX = parseInt(circleStyle.getPropertyValue('left'));
 
+    setInterval(() => { 
     if (circleX == 0 && circleY == 0) {
         if (randomBool == 0) {
             moveCircle(400, randomPositoin);
@@ -92,7 +102,8 @@ function randomMove() {
         } else {
             moveCircle(0, randomPositoin);
         }
-    }
+        }
+        }, 1000);
 }
 
 // function randomMove() {
