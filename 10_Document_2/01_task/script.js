@@ -1,121 +1,210 @@
-let circle = document.querySelector('.content__circle');
-let counter = document.querySelector('.circle__counter');
-let switchColor = true;
-let counterNumber = 1;
+const circle = document.querySelector('.content__circle');
+const circleStyle = window.getComputedStyle(circle);
+const counter = document.querySelector('.circle__counter');
+
+const circleState = {
+    bool: true,
+    counter: 1,
+    red: 'red',
+    blue: 'blue',
+};
 
 randomMove();
 
 function moveCircle(x, y) {
-    let circleStyle = window.getComputedStyle(circle);
-    let circleY = parseInt(circleStyle.getPropertyValue('top'));
-    let circleX = parseInt(circleStyle.getPropertyValue('left'));
-
     let time = 1000;
     let n = time / 5;
-    let currentX = circleX;
-    let currentY = circleY;
-    let stepX = (x - currentX) / n;
-    let stepY = (y - currentY) / n;
-    let step = 0;
+    const coordinate = {
+        x: parseInt(circleStyle.getPropertyValue('left')),
+        y: parseInt(circleStyle.getPropertyValue('top'))
+    }
 
-    let stopInterval = setInterval(() => {
-        step++;
+    const step = {
+        x: (x - coordinate.x) / n,
+        y: (y - coordinate.y) / n,
+        i: 0,
+    }
+    
+    const stopInterval = setInterval(() => {
+        step.i++;
 
-        if (n < step) {
-            touchBall();
-            clearInterval(stopInterval);
-        } else {
-            currentX += stepX;
-            currentY += stepY;
-            circle.style.top = Math.round(currentY) + 'px';
-            circle.style.left = Math.round(currentX) + 'px';
-        }
+        coordinate.x += step.x;
+        coordinate.y += step.y;
+        circle.style.left = Math.round(coordinate.x) + 'px';
+        circle.style.top = Math.round(coordinate.y) + 'px';
+
+        if (step.i < n) return;
+            
+        touchCircle();
+        clearInterval(stopInterval); 
     }, 5);
 }
 
-function touchBall() {
-    counter.innerHTML = counterNumber;
-    counterNumber++;
-    switchColor = !switchColor;
+function touchCircle() {
+    circleState.counter++;
+    counter.innerHTML = circleState.counter;
+    circleState.bool = !circleState.bool;
 
-    if (switchColor) {
-        circle.style.background = 'red';
-    } else {
-        circle.style.background = 'blue';
-    }
+    circle.style.background = (circleState.bool) ? circleState.red : circleState.blue;
 }
 
 function randomMove() {
-    
+
     setInterval(() => {
-
-        let randomBool = getRandomNumber(0, 1);
-        let randomNext = getRandomNumber(0, 2);
-        let randomPositoin = getRandomNumber(0, 400);
-
-        let circleStyle = window.getComputedStyle(circle);
-        let circleY = parseInt(circleStyle.getPropertyValue('top'));
-        let circleX = parseInt(circleStyle.getPropertyValue('left'));
-            
-        if (circleX == 0 && circleY == 0) {
-            if (randomBool == 0) {
-                moveCircle(400, randomPositoin);
-            } else {
-                moveCircle(randomPositoin, 400);
-            }
-        } else if (circleX == 0 && circleY == 400) {
-            if (randomBool == 0) {
-                moveCircle(randomPositoin, 0);
-            } else {
-                moveCircle(400, randomPositoin);
-            }
-        } else if (circleX == 400 && circleY == 0) {
-            if (randomBool == 0) {
-                moveCircle(0, randomPositoin);
-            } else {
-                moveCircle(randomPositoin, 400);
-            }
-        } else if (circleX == 400 && circleY == 400) {
-            if (randomBool == 0) {
-                moveCircle(0, randomPositoin);
-            } else {
-                moveCircle(randomPositoin, 0);
-            }
-        } else if (circleX == 400) {
-            if (randomNext == 0) {
-                moveCircle(randomPositoin, 0);
-            } else if (randomNext == 1) {
-                moveCircle(0, randomPositoin);
-            } else {
-                moveCircle(randomPositoin, 400);
-            }
-        } else if (circleY == 400) {
-            if (randomNext == 0) {
-                moveCircle(0, randomPositoin);
-            } else if (randomNext == 1) {
-                moveCircle(randomPositoin, 0);
-            } else {
-                moveCircle(400, randomPositoin);
-            }
-        } else if (circleX == 0) {
-            if (randomNext == 0) {
-                moveCircle(randomPositoin, 0);
-            } else if (randomNext == 1) {
-                moveCircle(400, randomPositoin);
-            } else {
-                moveCircle(randomPositoin, 400);
-            }
-        } else if (circleY == 0) {
-            if (randomNext == 0) {
-                moveCircle(400, randomPositoin);
-            } else if (randomNext == 1) {
-                moveCircle(randomPositoin, 400);
-            } else {
-                moveCircle(0, randomPositoin);
-            }
+        const random = {
+            bool: getRandomNumber(0, 1),
+            next: getRandomNumber(0, 2),
+            position: getRandomNumber(0,400),
         }
 
-    }, 100);
+        const coordinate = {
+            x: parseInt(circleStyle.getPropertyValue('left')),
+            y: parseInt(circleStyle.getPropertyValue('top'))
+        }
+
+        const side = {
+            left: coordinate.x == 0,
+            top: coordinate.y == 0,
+            right: coordinate.x == 400,
+            bottom: coordinate.y == 400,
+        }
+    
+        // switch (true) {
+        //     case side.left:
+        //     case side.top:
+        //         if (random.bool == 0) {
+        //             moveCircle(400, random.position);
+        //         } else {
+        //             moveCircle(random.position, 400);
+        //         }
+        //         break;
+            
+        //     case side.left:
+        //     case side.bottom:
+        //         if (random.bool == 0) {
+        //             moveCircle(random.position, 0);
+        //         } else {
+        //             moveCircle(400, random.position);
+        //         }
+        //         break;
+            
+        //     case side.right:
+        //     case side.top:
+        //         if (random.bool == 0) {
+        //             moveCircle(0, random.position);
+        //         } else {
+        //             moveCircle(random.position, 400);
+        //         }
+        //         break;
+            
+        //     case side.right:
+        //     case side.bottom:
+        //         if (random.bool == 0) {
+        //             moveCircle(0, random.position);
+        //         } else {
+        //             moveCircle(random.position, 0);
+        //         }
+        //         break;
+            
+        //     case side.right:
+        //         if (random.next == 0) {
+        //             moveCircle(random.position, 0);
+        //         } else if (random.next == 1) {
+        //             moveCircle(0, random.position);
+        //         } else {
+        //             moveCircle(random.position, 400);
+        //         }
+        //         break;
+            
+        //     case side.bottom:
+        //         if (random.next == 0) {
+        //             moveCircle(0, random.position);
+        //         } else if (random.next == 1) {
+        //             moveCircle(random.position, 0);
+        //         } else {
+        //             moveCircle(400, random.position);
+        //         }
+        //         break;
+            
+        //     case side.left:
+        //         if (random.next == 0) {
+        //             moveCircle(random.position, 0);
+        //         } else if (random.next == 1) {
+        //             moveCircle(400, random.position);
+        //         } else {
+        //             moveCircle(random.position, 400);
+        //         }
+        //         break;
+            
+        //     case side.top:
+        //         if (random.next == 0) {
+        //             moveCircle(400, random.position);
+        //         } else if (random.next == 1) {
+        //             moveCircle(random.position, 400);
+        //         } else {
+        //             moveCircle(0, random.position);
+        //         }
+        //         break;
+        // }
+        
+        if (side.left && side.top ) {
+            if (random.bool == 0) {
+                moveCircle(400, random.position);
+            } else {
+                moveCircle(random.position, 400);
+            }
+        } else if (side.left && side.bottom) {
+            if (random.bool == 0) {
+                moveCircle(random.position, 0);
+            } else {
+                moveCircle(400, random.position);
+            }
+        } else if (side.right && side.top) {
+            if (random.bool == 0) {
+                moveCircle(0, random.position);
+            } else {
+                moveCircle(random.position, 400);
+            }
+        } else if (side.right && side.bottom) {
+            if (random.bool == 0) {
+                moveCircle(0, random.position);
+            } else {
+                moveCircle(random.position, 0);
+            }
+        } else if (side.right) {
+            if (random.next == 0) {
+                moveCircle(random.position, 0);
+            } else if (random.next == 1) {
+                moveCircle(0, random.position);
+            } else {
+                moveCircle(random.position, 400);
+            }
+        } else if (side.bottom) {
+            if (random.next == 0) {
+                moveCircle(0, random.position);
+            } else if (random.next == 1) {
+                moveCircle(random.position, 0);
+            } else {
+                moveCircle(400, random.position);
+            }
+        } else if (side.left) {
+            if (random.next == 0) {
+                moveCircle(random.position, 0);
+            } else if (random.next == 1) {
+                moveCircle(400, random.position);
+            } else {
+                moveCircle(random.position, 400);
+            }
+        } else if (side.top) {
+            if (random.next == 0) {
+                moveCircle(400, random.position);
+            } else if (random.next == 1) {
+                moveCircle(random.position, 400);
+            } else {
+                moveCircle(0, random.position);
+            }
+        }
+    }, 30);
 }
 
 function getRandomNumber(min, max) {
