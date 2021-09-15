@@ -3,37 +3,35 @@ const circleStyle = window.getComputedStyle(circle);
 const counter = document.querySelector('.circle__counter');
 
 const circleState = {
-    bool: true,
     counter: 1,
-    red: 'red',
-    blue: 'blue',
+    color: 'red',
 };
 
 randomMove();
 
 function moveCircle(x, y) {
-    let time = 1000;
-    let n = time / 5;
-    const coordinate = {
+    const time = 1000;
+    const n = time / 5;
+    const coordinates = {
         x: parseInt(circleStyle.getPropertyValue('left')),
         y: parseInt(circleStyle.getPropertyValue('top'))
-    }
+    };
 
     const step = {
-        x: (x - coordinate.x) / n,
-        y: (y - coordinate.y) / n,
-        i: 0,
-    }
+        x: (x - coordinates.x) / n,
+        y: (y - coordinates.y) / n,
+        counter: 0,
+    };
     
     const stopInterval = setInterval(() => {
-        step.i++;
+        step.counter++;
 
-        coordinate.x += step.x;
-        coordinate.y += step.y;
-        circle.style.left = Math.round(coordinate.x) + 'px';
-        circle.style.top = Math.round(coordinate.y) + 'px';
+        coordinates.x += step.x;
+        coordinates.y += step.y;
+        circle.style.left = Math.round(coordinates.x) + 'px';
+        circle.style.top = Math.round(coordinates.y) + 'px';
 
-        if (step.i < n) return;
+        if (step.counter < n) return;
             
         touchCircle();
         clearInterval(stopInterval); 
@@ -43,9 +41,8 @@ function moveCircle(x, y) {
 function touchCircle() {
     circleState.counter++;
     counter.innerHTML = circleState.counter;
-    circleState.bool = !circleState.bool;
 
-    circle.style.background = (circleState.bool) ? circleState.red : circleState.blue;
+    circle.style.background = (circle.style.background === 'blue') ? 'red' : 'blue';
 }
 
 function randomMove() {
@@ -54,124 +51,60 @@ function randomMove() {
         const random = {
             bool: getRandomNumber(0, 1),
             next: getRandomNumber(0, 2),
-            position: getRandomNumber(0,400),
-        }
+            position: getRandomNumber(0, 400),
+        };
 
-        const coordinate = {
+        const coordinates = {
             x: parseInt(circleStyle.getPropertyValue('left')),
             y: parseInt(circleStyle.getPropertyValue('top'))
-        }
+        };
 
-        const side = {
-            left: coordinate.x == 0,
-            top: coordinate.y == 0,
-            right: coordinate.x == 400,
-            bottom: coordinate.y == 400,
+        const touchedSides = {
+            left: coordinates.x === 0,
+            top: coordinates.y === 0,
+            right: coordinates.x === 400,
+            bottom: coordinates.y === 400,
+        };
+
+        const destinationSide = () => {
+            const arr = [];
+
+            for (let key in touchedSides) {
+                if (touchedSides[key] === false) {
+                    arr.push(key)
+                }
+            }
+            
+            console.log(arr[random.next])
+            return destinationSide;
         }
-    
-        // switch (true) {
-        //     case side.left:
-        //     case side.top:
-        //         if (random.bool == 0) {
-        //             moveCircle(400, random.position);
-        //         } else {
-        //             moveCircle(random.position, 400);
-        //         }
-        //         break;
-            
-        //     case side.left:
-        //     case side.bottom:
-        //         if (random.bool == 0) {
-        //             moveCircle(random.position, 0);
-        //         } else {
-        //             moveCircle(400, random.position);
-        //         }
-        //         break;
-            
-        //     case side.right:
-        //     case side.top:
-        //         if (random.bool == 0) {
-        //             moveCircle(0, random.position);
-        //         } else {
-        //             moveCircle(random.position, 400);
-        //         }
-        //         break;
-            
-        //     case side.right:
-        //     case side.bottom:
-        //         if (random.bool == 0) {
-        //             moveCircle(0, random.position);
-        //         } else {
-        //             moveCircle(random.position, 0);
-        //         }
-        //         break;
-            
-        //     case side.right:
-        //         if (random.next == 0) {
-        //             moveCircle(random.position, 0);
-        //         } else if (random.next == 1) {
-        //             moveCircle(0, random.position);
-        //         } else {
-        //             moveCircle(random.position, 400);
-        //         }
-        //         break;
-            
-        //     case side.bottom:
-        //         if (random.next == 0) {
-        //             moveCircle(0, random.position);
-        //         } else if (random.next == 1) {
-        //             moveCircle(random.position, 0);
-        //         } else {
-        //             moveCircle(400, random.position);
-        //         }
-        //         break;
-            
-        //     case side.left:
-        //         if (random.next == 0) {
-        //             moveCircle(random.position, 0);
-        //         } else if (random.next == 1) {
-        //             moveCircle(400, random.position);
-        //         } else {
-        //             moveCircle(random.position, 400);
-        //         }
-        //         break;
-            
-        //     case side.top:
-        //         if (random.next == 0) {
-        //             moveCircle(400, random.position);
-        //         } else if (random.next == 1) {
-        //             moveCircle(random.position, 400);
-        //         } else {
-        //             moveCircle(0, random.position);
-        //         }
-        //         break;
-        // }
-        
-        if (side.left && side.top ) {
+        destinationSide();
+
+        if (touchedSides.left && touchedSides.top) {
             if (random.bool == 0) {
                 moveCircle(400, random.position);
             } else {
                 moveCircle(random.position, 400);
             }
-        } else if (side.left && side.bottom) {
+        } else if (touchedSides.left && touchedSides.bottom) {
             if (random.bool == 0) {
                 moveCircle(random.position, 0);
             } else {
                 moveCircle(400, random.position);
             }
-        } else if (side.right && side.top) {
+        } else if (touchedSides.right && touchedSides.top) {
             if (random.bool == 0) {
                 moveCircle(0, random.position);
             } else {
                 moveCircle(random.position, 400);
             }
-        } else if (side.right && side.bottom) {
+        } else if (touchedSides.right && touchedSides.bottom) {
             if (random.bool == 0) {
                 moveCircle(0, random.position);
             } else {
                 moveCircle(random.position, 0);
             }
-        } else if (side.right) {
+        } else if (touchedSides.right) {
             if (random.next == 0) {
                 moveCircle(random.position, 0);
             } else if (random.next == 1) {
@@ -179,7 +112,7 @@ function randomMove() {
             } else {
                 moveCircle(random.position, 400);
             }
-        } else if (side.bottom) {
+        } else if (touchedSides.bottom) {
             if (random.next == 0) {
                 moveCircle(0, random.position);
             } else if (random.next == 1) {
@@ -187,7 +120,7 @@ function randomMove() {
             } else {
                 moveCircle(400, random.position);
             }
-        } else if (side.left) {
+        } else if (touchedSides.left) {
             if (random.next == 0) {
                 moveCircle(random.position, 0);
             } else if (random.next == 1) {
@@ -195,7 +128,7 @@ function randomMove() {
             } else {
                 moveCircle(random.position, 400);
             }
-        } else if (side.top) {
+        } else if (touchedSides.top) {
             if (random.next == 0) {
                 moveCircle(400, random.position);
             } else if (random.next == 1) {
@@ -204,7 +137,7 @@ function randomMove() {
                 moveCircle(0, random.position);
             }
         }
-    }, 30);
+    }, 1500);
 }
 
 function getRandomNumber(min, max) {
