@@ -2,23 +2,23 @@ const circle = document.querySelector('.content__circle');
 const circleStyle = window.getComputedStyle(circle);
 const counter = document.querySelector('.circle__counter');
 
-const coordinates = {
-    valueX: parseInt(circleStyle.getPropertyValue('left')),
-    valueY: parseInt(circleStyle.getPropertyValue('top')),
-    get x() {
-        return Math.round(this.valueX);
-    },
-    get y() {
-        return Math.round(this.valueY);
-    },
-    set x(value) {
-        this.valueX = value;
-    },
-    set y(value) {
-        this.valueY = value;
-    }
-};
-console.log(coordinates.valueX, coordinates.valueY)
+// const coordinates = {
+//     valueX: parseInt(circleStyle.getPropertyValue('left')),
+//     valueY: parseInt(circleStyle.getPropertyValue('top')),
+//     get x() {
+//         return Math.round(this.valueX);
+//     },
+//     get y() {
+//         return Math.round(this.valueY);
+//     },
+//     set x(value) {
+//         this.valueX = value;
+//     },
+//     set y(value) {
+//         this.valueY = value;
+//     }
+// };
+// console.log(coordinates.valueX, coordinates.valueY)
     
 const circleState = {
     counter: 1,
@@ -30,10 +30,10 @@ function moveCircle(x, y) {
     const time = 1000;
     const n = time / 5;
 
-    // const coordinates = {
-    //     x: parseInt(circleStyle.getPropertyValue('left')),
-    //     y: parseInt(circleStyle.getPropertyValue('top'))
-    // };
+    const coordinates = {
+        x: parseInt(circleStyle.getPropertyValue('left')),
+        y: parseInt(circleStyle.getPropertyValue('top'))
+    };
 
     // console.log(coordinates.x, coordinates.y)
 
@@ -76,10 +76,10 @@ function randomMove() {
 
         const movingCoordinates = {};
 
-        // const coordinates = {
-        //     x: parseInt(circleStyle.getPropertyValue('left')),
-        //     y: parseInt(circleStyle.getPropertyValue('top'))
-        // };
+        const coordinates = {
+            x: parseInt(circleStyle.getPropertyValue('left')),
+            y: parseInt(circleStyle.getPropertyValue('top'))
+        };
 
         const touchedSides = {
             left: coordinates.x === 0,
@@ -88,10 +88,10 @@ function randomMove() {
             bottom: coordinates.y === 400,
         };
 
-        // const noContactSides = [];
+        const noContactSides = [];
 
         function getDestinationSide() {
-        let noContactSides = [];
+        // let noContactSides = [];
 
             for (let key in touchedSides) {
                 if (touchedSides[key] === false) noContactSides.push(key);
@@ -107,77 +107,77 @@ function randomMove() {
             
             return getDestinationSide;
         }
-        // getDestinationSide();
-        const destinationSide = getDestinationSide();
+        getDestinationSide();
+        // const destinationSide = getDestinationSide();
 
-        // const randomSide = (noContactSides.length === 2) ?
-        //     noContactSides[random.corner] :
-        //     noContactSides[random.side];
+        const randomSide = (noContactSides.length === 2) ?
+            noContactSides[random.corner] :
+            noContactSides[random.side];
         
-        switch (destinationSide) {
-            case 'left':
-                movingCoordinates.x = 0;
-                movingCoordinates.y = random.position;
-                break;
-            
-            case 'top':
-                movingCoordinates.x = random.position;
-                movingCoordinates.y = 0;
-                break;
-            
-            case 'right':
-                movingCoordinates.x = 400;
-                movingCoordinates.y = random.position;
-                break;
-            
-            case 'bottom':
-                movingCoordinates.x = random.position;
-                movingCoordinates.y = 400;
-                break;
-        }
-        moveCircle(movingCoordinates.x, movingCoordinates.y);
-
-        // switch (true) {
-        //     case touchedSides.left:
-        //         if (randomSide === 'top') {
-        //             moveCircle(random.position, 0);
-        //         } else if (randomSide === 'right') {
-        //             moveCircle(400, random.position);
-        //         } else {
-        //             moveCircle(random.position, 400);
-        //         }
+        // switch (destinationSide) {
+        //     case 'left':
+        //         movingCoordinates.x = 0;
+        //         movingCoordinates.y = random.position;
         //         break;
             
-        //     case touchedSides.top:
-        //         if (randomSide === 'right') {
-        //             moveCircle(400, random.position);
-        //         } else if (randomSide === 'bottom') {
-        //             moveCircle(random.position, 400);
-        //         } else {
-        //             moveCircle(0, random.position);
-        //         }
+        //     case 'top':
+        //         movingCoordinates.x = random.position;
+        //         movingCoordinates.y = 0;
         //         break;
             
-        //     case touchedSides.right:
-        //         if (randomSide === 'top') {
-        //             moveCircle(random.position, 0);
-        //         } else if (randomSide === 'left') {
-        //             moveCircle(0, random.position);
-        //         } else {
-        //             moveCircle(random.position, 400);
-        //         }
+        //     case 'right':
+        //         movingCoordinates.x = 400;
+        //         movingCoordinates.y = random.position;
         //         break;
             
-        //     case touchedSides.bottom:
-        //         if (randomSide === 'left') {
-        //             moveCircle(0, random.position);
-        //         } else if (randomSide === 'top') {
-        //             moveCircle(random.position, 0);
-        //         } else {
-        //             moveCircle(400, random.position);
-        //         }
+        //     case 'bottom':
+        //         movingCoordinates.x = random.position;
+        //         movingCoordinates.y = 400;
         //         break;
         // }
+        // moveCircle(movingCoordinates.x, movingCoordinates.y);
+
+        switch (true) {
+            case touchedSides.left:
+                if (randomSide === 'top') {
+                    moveCircle(random.position, 0);
+                } else if (randomSide === 'right') {
+                    moveCircle(400, random.position);
+                } else {
+                    moveCircle(random.position, 400);
+                }
+                break;
+            
+            case touchedSides.top:
+                if (randomSide === 'right') {
+                    moveCircle(400, random.position);
+                } else if (randomSide === 'bottom') {
+                    moveCircle(random.position, 400);
+                } else {
+                    moveCircle(0, random.position);
+                }
+                break;
+            
+            case touchedSides.right:
+                if (randomSide === 'top') {
+                    moveCircle(random.position, 0);
+                } else if (randomSide === 'left') {
+                    moveCircle(0, random.position);
+                } else {
+                    moveCircle(random.position, 400);
+                }
+                break;
+            
+            case touchedSides.bottom:
+                if (randomSide === 'left') {
+                    moveCircle(0, random.position);
+                } else if (randomSide === 'top') {
+                    moveCircle(random.position, 0);
+                } else {
+                    moveCircle(400, random.position);
+                }
+                break;
+        }
     }, 100);
 }
 
