@@ -2,23 +2,10 @@ const circle = document.querySelector('.content__circle');
 const circleStyle = window.getComputedStyle(circle);
 const counter = document.querySelector('.circle__counter');
 
-// const coordinates = {
-//     valueX: parseInt(circleStyle.getPropertyValue('left')),
-//     valueY: parseInt(circleStyle.getPropertyValue('top')),
-//     get x() {
-//         return Math.round(this.valueX);
-//     },
-//     get y() {
-//         return Math.round(this.valueY);
-//     },
-//     set x(value) {
-//         this.valueX = value;
-//     },
-//     set y(value) {
-//         this.valueY = value;
-//     }
-// };
-// console.log(coordinates.valueX, coordinates.valueY)
+const coordinates = {
+    x: parseInt(circleStyle.getPropertyValue('left')),
+    y: parseInt(circleStyle.getPropertyValue('top')),
+};
     
 const circleState = {
     counter: 1,
@@ -30,12 +17,12 @@ function moveCircle(x, y) {
     const time = 1000;
     const n = time / 5;
 
-    const coordinates = {
-        x: parseInt(circleStyle.getPropertyValue('left')),
-        y: parseInt(circleStyle.getPropertyValue('top'))
-    };
+    // const coordinates = {
+    //     x: parseInt(circleStyle.getPropertyValue('left')),
+    //     y: parseInt(circleStyle.getPropertyValue('top'))
+    // };
 
-    // console.log(coordinates.x, coordinates.y)
+    console.log(coordinates.x, coordinates.y)
 
     const steps = {
         x: (x - coordinates.x) / n,
@@ -48,9 +35,13 @@ function moveCircle(x, y) {
 
         coordinates.x += steps.x;
         coordinates.y += steps.y;
-        circle.style.left = Math.round(coordinates.x) + 'px';
-        circle.style.top = Math.round(coordinates.y) + 'px';
+        circle.style.left = coordinates.x + 'px';
+        circle.style.top = coordinates.y + 'px';
 
+        if (steps.counter === n) {
+            coordinates.x = Math.round(coordinates.x);
+            coordinates.y = Math.round(coordinates.y);
+        }
         if (steps.counter < n) return;
             
         touchCircle();
@@ -76,10 +67,10 @@ function randomMove() {
 
         const movingCoordinates = {};
 
-        const coordinates = {
-            x: parseInt(circleStyle.getPropertyValue('left')),
-            y: parseInt(circleStyle.getPropertyValue('top'))
-        };
+        // const coordinates = {
+        //     x: parseInt(circleStyle.getPropertyValue('left')),
+        //     y: parseInt(circleStyle.getPropertyValue('top'))
+        // };
 
         const touchedSides = {
             left: coordinates.x === 0,
