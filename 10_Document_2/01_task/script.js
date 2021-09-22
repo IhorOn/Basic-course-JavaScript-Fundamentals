@@ -17,11 +17,6 @@ function moveCircle(x, y) {
     const time = 1000;
     const n = time / 5;
 
-    // const coordinates = {
-    //     x: parseInt(circleStyle.getPropertyValue('left')),
-    //     y: parseInt(circleStyle.getPropertyValue('top'))
-    // };
-
     console.log(coordinates.x, coordinates.y)
 
     const steps = {
@@ -66,11 +61,6 @@ function randomMove() {
         };
 
         const movingCoordinates = {};
-
-        // const coordinates = {
-        //     x: parseInt(circleStyle.getPropertyValue('left')),
-        //     y: parseInt(circleStyle.getPropertyValue('top'))
-        // };
 
         const touchedSides = {
             left: coordinates.x === 0,
