@@ -2,40 +2,39 @@ const circle = document.querySelector('.content__circle');
 const circleStyle = window.getComputedStyle(circle);
 const counter = document.querySelector('.circle__counter');
 
-const coordinates = {
+const circleProperties = {
+    counter: 1,
     x: parseInt(circleStyle.getPropertyValue('left')),
     y: parseInt(circleStyle.getPropertyValue('top')),
-};
-    
-const circleState = {
-    counter: 1,
 };
 
 randomMove(); 
 
 function moveCircle(x, y) {
-    const time = 1000;
-    const n = time / 5;
-
-    console.log(coordinates.x, coordinates.y)
-
+    const k = 5;
+    // const time = 500;
+    let time = Math.sqrt((x - circleProperties.x) ** 2 + (y - circleProperties.y) ** 2);
+    let n = Math.round(time / k);
+    
     const steps = {
-        x: (x - coordinates.x) / n,
-        y: (y - coordinates.y) / n,
+        x: (x - circleProperties.x) / n,
+        y: (y - circleProperties.y) / n,
         counter: 0,
     };
+    console.log(time, n)
+    // console.log(circleProperties.x, circleProperties.y)
 
     const stopInterval = setInterval(() => {
         steps.counter++;
 
-        coordinates.x += steps.x;
-        coordinates.y += steps.y;
-        circle.style.left = coordinates.x + 'px';
-        circle.style.top = coordinates.y + 'px';
+        circleProperties.x += steps.x;
+        circleProperties.y += steps.y;
+        circle.style.left = circleProperties.x + 'px';
+        circle.style.top = circleProperties.y + 'px';
 
         if (steps.counter === n) {
-            coordinates.x = Math.round(coordinates.x);
-            coordinates.y = Math.round(coordinates.y);
+            circleProperties.x = Math.round(circleProperties.x);
+            circleProperties.y = Math.round(circleProperties.y);
         }
         if (steps.counter < n) return;
             
@@ -45,8 +44,8 @@ function moveCircle(x, y) {
 }
 
 function touchCircle() {
-    circleState.counter++
-    counter.innerHTML = circleState.counter;
+    circleProperties.counter++
+    counter.innerHTML = circleProperties.counter;
 
     circle.style.background = (circle.style.background === 'blue') ? 'red' : 'blue';
 }
@@ -63,103 +62,57 @@ function randomMove() {
         const movingCoordinates = {};
 
         const touchedSides = {
-            left: coordinates.x === 0,
-            top: coordinates.y === 0,
-            right: coordinates.x === 400,
-            bottom: coordinates.y === 400,
+            left: circleProperties.x === 0,
+            top: circleProperties.y === 0,
+            right: circleProperties.x === 400,
+            bottom: circleProperties.y === 400,
         };
 
-        const noContactSides = [];
-
         function getDestinationSide() {
-        // let noContactSides = [];
+            const noContactSides = [];
+            let movingSide;
 
             for (let key in touchedSides) {
                 if (touchedSides[key] === false) noContactSides.push(key);
             };
             
-            // console.log(noContactSides);
+            console.log(noContactSides);
 
-            // noContactSides = (noContactSides.length === 2) ?
-            // noContactSides[random.corner] :
-            // noContactSides[random.side];
-            
-            // console.log(noContactSides);
-            
-            return getDestinationSide;
-        }
-        getDestinationSide();
-        // const destinationSide = getDestinationSide();
-
-        const randomSide = (noContactSides.length === 2) ?
+            movingSide = (noContactSides.length === 2) ?
             noContactSides[random.corner] :
             noContactSides[random.side];
-        
-        // switch (destinationSide) {
-        //     case 'left':
-        //         movingCoordinates.x = 0;
-        //         movingCoordinates.y = random.position;
-        //         break;
             
-        //     case 'top':
-        //         movingCoordinates.x = random.position;
-        //         movingCoordinates.y = 0;
-        //         break;
-            
-        //     case 'right':
-        //         movingCoordinates.x = 400;
-        //         movingCoordinates.y = random.position;
-        //         break;
-            
-        //     case 'bottom':
-        //         movingCoordinates.x = random.position;
-        //         movingCoordinates.y = 400;
-        //         break;
-        // }
-        // moveCircle(movingCoordinates.x, movingCoordinates.y);
+            console.log(movingSide);
 
-        switch (true) {
-            case touchedSides.left:
-                if (randomSide === 'top') {
-                    moveCircle(random.position, 0);
-                } else if (randomSide === 'right') {
-                    moveCircle(400, random.position);
-                } else {
-                    moveCircle(random.position, 400);
-                }
+            return movingSide;
+        }
+
+        const destinationSide = getDestinationSide();
+
+        switch (destinationSide) {
+            case 'left':
+                movingCoordinates.x = 0;
+                movingCoordinates.y = random.position;
                 break;
             
-            case touchedSides.top:
-                if (randomSide === 'right') {
-                    moveCircle(400, random.position);
-                } else if (randomSide === 'bottom') {
-                    moveCircle(random.position, 400);
-                } else {
-                    moveCircle(0, random.position);
-                }
+            case 'top':
+                movingCoordinates.x = random.position;
+                movingCoordinates.y = 0;
                 break;
             
-            case touchedSides.right:
-                if (randomSide === 'top') {
-                    moveCircle(random.position, 0);
-                } else if (randomSide === 'left') {
-                    moveCircle(0, random.position);
-                } else {
-                    moveCircle(random.position, 400);
-                }
+            case 'right':
+                movingCoordinates.x = 400;
+                movingCoordinates.y = random.position;
                 break;
             
-            case touchedSides.bottom:
-                if (randomSide === 'left') {
-                    moveCircle(0, random.position);
-                } else if (randomSide === 'top') {
-                    moveCircle(random.position, 0);
-                } else {
-                    moveCircle(400, random.position);
-                }
+            case 'bottom':
+                movingCoordinates.x = random.position;
+                movingCoordinates.y = 400;
                 break;
         }
-    }, 100);
+        moveCircle(movingCoordinates.x, movingCoordinates.y);
+
+    }, 600);
 }
 
 function getRandomNumber(min, max) {
